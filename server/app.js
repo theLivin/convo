@@ -5,7 +5,11 @@ const server = require("http").createServer(app);
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: ["http://192.168.8.170:8080", "http://localhost:8080"],
+    origin: [
+      "http://192.168.8.170:8080",
+      "http://localhost:8080",
+      "https://con-vo.netlify.app",
+    ],
     methods: ["GET", "POST"],
     credentials: true,
   },

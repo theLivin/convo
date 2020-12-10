@@ -11,10 +11,12 @@ const options = {
   withCredentials: true,
 };
 
+const url = "https://express-chatapp-server.herokuapp.com/"; //"http://192.168.8.170:3000"
+
 Vue.use(
   new VueSocketIO({
     // debug: true,
-    connection: SocketIO("http://192.168.8.170:3000", options),
+    connection: SocketIO(url, options),
   })
 );
 
