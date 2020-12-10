@@ -27,6 +27,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, "192.168.8.170", () =>
-  console.log("server running on port " + port)
-);
+server.listen(port, () => console.log("server running on port " + port));
