@@ -11,11 +11,8 @@ const options = {
   withCredentials: true,
 };
 
-// hosted server
-// const url = "https://express-chatapp-server.herokuapp.com/";
-
-// local server
-const url = "http://localhost:3000";
+const url = process.env.VUE_APP_SERVER_URL;
+console.log(url);
 
 Vue.use(
   new VueSocketIO({
