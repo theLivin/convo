@@ -11,12 +11,12 @@
       }"
     >
       <div
-        v-for="(msg, i) in messages"
+        v-for="(item, i) in messages"
         :key="i"
         class="rounded-lg my-2 pa-2 message"
-        :class="{ left: i % 2 !== 0, 'ml-auto right': i % 2 == 0 }"
+        :class="{ left: !item.fromMe, 'ml-auto right': item.fromMe }"
       >
-        {{ msg }}
+        {{ item.message }}
       </div>
 
       <div id="lastMsg"></div>
@@ -66,12 +66,17 @@ export default {
 
   data: () => ({
     newMessage: "",
-    messages: [],
+    // messages: [],
   }),
 
   computed: {
     chatId() {
       return this.$store.getters.getStateData("chatId");
+    },
+
+    messages() {
+      const allMessages = this.$store.getters.getStateData("messages");
+      return allMessages[this.chatId] || [];
     },
   },
 
@@ -92,14 +97,17 @@ export default {
       });
     },
 
-    message({ message, recipient, sender }) {
-      // const { message, recipient, sender } = payload;
+    message(payload) {
+      const { message, recipient, sender } = payload;
       // console.log(payload);
       console.log(recipient);
       console.log(sender);
       console.log(message);
       Push.create(message);
-      this.messages.push(message);
+      this.updateStateData({
+        statename: "messages",
+        data: payload,
+      });
     },
   },
 
@@ -107,13 +115,23 @@ export default {
     ...mapActions(["updateStateData"]),
 
     sendMessage() {
-      if (this.newMessage.length <= 0) return;
+      if (this.newMessage.length <= 0 || this.chatId.length <= 0) return;
       console.log(this.newMessage);
+
       this.$socket.emit("message", {
         message: this.newMessage,
         target: this.chatId,
       });
-      this.messages.push(this.newMessage);
+
+      this.updateStateData({
+        statename: "messages",
+        data: {
+          message: this.newMessage,
+          fromMe: true,
+          recipient: this.chatId,
+        },
+      });
+
       this.newMessage = "";
     },
 

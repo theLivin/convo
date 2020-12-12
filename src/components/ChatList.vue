@@ -72,7 +72,7 @@ export default {
   },
 
   sockets: {
-    "users-online"(users) {
+    usersOnline(users) {
       this.updateStateData({
         statename: "usersOnline",
         data: users,

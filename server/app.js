@@ -31,13 +31,13 @@ io.on("connection", (socket) => {
     };
     online.push(newUser);
 
-    io.emit("users-online", online);
+    io.emit("usersOnline", online);
   });
 
   socket.on("disconnect", () => {
     // console.log("a user disconnected");
     online = online.filter((user) => user.id !== socket.id);
-    io.emit("users-online", online);
+    io.emit("usersOnline", online);
   });
 
   socket.on("message", (payload) => {

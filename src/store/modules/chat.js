@@ -19,7 +19,10 @@ const actions = {
     const target = payload.statename;
     const { data } = payload;
 
-    if (target === "messages") commit("HANDLE_MESSAGES", { ...payload });
+    if (target === "messages") {
+      commit("HANDLE_MESSAGES", payload);
+      return;
+    }
 
     commit("MAKE_UPDATE", { target, data });
   },
@@ -31,7 +34,18 @@ const mutations = {
   },
 
   HANDLE_MESSAGES(state, payload) {
-    console.log(payload);
+    const { statename, data } = payload;
+    const { sender, recipient, fromMe } = data;
+
+    const location = fromMe ? recipient : sender;
+
+    const prevMsgs = state[statename];
+
+    if (!prevMsgs[location]) prevMsgs[location] = [];
+
+    prevMsgs[location].push(data);
+
+    state[statename] = { ...state[statename], ...prevMsgs };
   },
 };
 
