@@ -17,18 +17,39 @@ const io = require("socket.io")(server, {
 
 const port = process.env.PORT || 3000;
 
+//socketing
+let online = [];
+
 io.on("connection", (socket) => {
-  console.log(socket.id + " connected");
+  // console.log(socket.id + " connected");
+  io.to(socket.id).emit("established", { id: socket.id });
+
+  socket.on("joined", (payload) => {
+    const newUser = {
+      id: socket.id,
+      username: payload.username,
+    };
+    online.push(newUser);
+
+    io.emit("users-online", online);
+  });
 
   socket.on("disconnect", () => {
-    console.log("a user disconnected");
+    // console.log("a user disconnected");
+    online = online.filter((user) => user.id !== socket.id);
+    io.emit("users-online", online);
   });
 
-  socket.on("message", (message) => {
-    console.log(message);
-    // io.emit("message", { ...message, userid: socket.id });
-    socket.broadcast.emit("message", { ...message, userid: socket.id });
+  socket.on("message", (payload) => {
+    console.log(payload);
+    const { message, target } = payload;
+    io.to(target).emit("message", {
+      message: message,
+      sender: socket.id,
+      recipient: target,
+    });
   });
 });
+// endsocketing
 
 server.listen(port, () => console.log("server running on port " + port));
