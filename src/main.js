@@ -12,7 +12,6 @@ const options = {
 };
 
 const url = process.env.VUE_APP_SERVER_URL;
-console.log(url);
 
 Vue.use(
   new VueSocketIO({

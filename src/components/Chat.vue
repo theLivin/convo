@@ -1,7 +1,21 @@
 <template>
   <div style="height: 100%;">
     <!-- top -->
-    <div style="height: 10%; background-color: peachpuff">{{ chatId }}</div>
+    <div style="height: 10%" class="overflow-hidden">
+      <v-list dense color="transparent" class="d-flex" height="100%">
+        <v-list-item class="align-center">
+          <v-list-item-avatar size="35">
+            <v-img :src="chatInfo.image"></v-img>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title class="font-weight-bold">{{
+              chatInfo.username
+            }}</v-list-item-title>
+            <v-list-item-subtitle>additional info</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </div>
 
     <!-- messages area -->
     <ScrollableCard
@@ -78,6 +92,11 @@ export default {
       const allMessages = this.$store.getters.getStateData("messages");
       return allMessages[this.chatId] || [];
     },
+
+    chatInfo() {
+      const usersOnline = this.$store.getters.getStateData("usersOnline");
+      return usersOnline.filter((user) => user.id === this.chatId)[0] || {};
+    },
   },
 
   sockets: {
@@ -90,7 +109,7 @@ export default {
     },
 
     established(payload) {
-      console.log(payload);
+      // console.log(payload);
       this.updateStateData({
         statename: "id",
         data: payload.id,

@@ -2,8 +2,8 @@
   <div style="height: 100%;" class="rounded-bl overflow-hidden">
     <!-- user info -->
     <div
-      style="height:10%;background-color:tomato"
-      class="overflow-hidden text-center white--text pt-2"
+      style="height:15%;background-color:tomato"
+      class="overflow-hidden text-center white--text pt-5"
     >
       <h2>{{ username }}</h2>
       <!-- <v-text-field
@@ -19,25 +19,48 @@
     <!-- users online -->
     <ScrollableCard
       :attributes="{
-        height: '90%',
+        height: '85%',
         class: 'rounded-0 rounded-bl',
       }"
     >
-      <v-list dense color="transparent" class="ma-0 pa-0" :search="search">
-        <v-list-item-group>
+      <v-list
+        color="transparent"
+        dense
+        class="ma-0 pa-0 d-flex"
+        :search="search"
+      >
+        <v-list-item-group active-class="pink--text">
           <template v-for="(user, index) in usersOnline">
-            <v-divider :key="index" v-if="index != 0"></v-divider>
-
-            <v-list-item :key="user.id" @click="startChat(user.id)">
-              <v-list-item-avatar size="30">
-                <v-img :src="avatar"></v-img>
+            <v-list-item
+              class="align-center"
+              :key="user.id"
+              @click="startChat(user.id)"
+            >
+              <v-list-item-avatar size="40">
+                <v-img :src="user.image"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-html="user.username"> </v-list-item-title>
-                <v-list-item-subtitle v-html="user.id"></v-list-item-subtitle>
+                <v-list-item-title
+                  class="font-weight-bold"
+                  v-text="user.username"
+                ></v-list-item-title>
+
+                <v-list-item-subtitle
+                  class="text--primary"
+                  v-text="user.id"
+                ></v-list-item-subtitle>
               </v-list-item-content>
+
+              <v-list-item-action>
+                <v-chip small rounded class="pa-2"> {{ index }} </v-chip>
+              </v-list-item-action>
             </v-list-item>
+
+            <v-divider
+              v-if="index < usersOnline.length - 1"
+              :key="index"
+            ></v-divider>
           </template>
         </v-list-item-group>
       </v-list>
@@ -58,7 +81,7 @@ export default {
 
   data: () => ({
     search: "",
-    avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+    avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
   }),
 
   computed: {
