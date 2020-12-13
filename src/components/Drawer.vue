@@ -15,7 +15,13 @@
 
         <div>
           <v-card-actions>
-            <v-btn icon @click="toggleNotify()" color="white" small>
+            <v-btn
+              icon
+              @click="toggleNotify()"
+              color="white"
+              class="mt-2"
+              small
+            >
               <v-icon class="notification" v-if="notify">mdi-bell-ring</v-icon>
               <v-icon v-else>mdi-bell-off</v-icon>
             </v-btn>
@@ -31,6 +37,8 @@
 </template>
 
 <script>
+import Push from "push.js";
+
 export default {
   name: "Drawer",
 
@@ -46,8 +54,21 @@ export default {
 
   methods: {
     toggleNotify() {
-      this.notify = !this.notify;
+      Push.Permission.request(
+        () => {
+          //granted
+          this.notify = true;
+        },
+        () => {
+          //denied
+          this.notify = false;
+        }
+      );
     },
+  },
+
+  mounted() {
+    this.notify = Push.Permission.has();
   },
 };
 </script>
