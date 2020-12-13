@@ -24,14 +24,23 @@
         class: 'rounded-0 pa-3 chat',
       }"
     >
-      <div
-        v-for="(item, i) in messages"
-        :key="i"
-        class="rounded-lg my-2 pa-2 message"
-        :class="{ left: !item.fromMe, 'ml-auto right': item.fromMe }"
-      >
-        {{ item.message }}
-      </div>
+      <template v-for="(item, i) in messages">
+        <div
+          v-if="item.broadcast"
+          :key="i"
+          class="rounded-xl my-2 pa-2 message mx-auto"
+        >
+          {{ item.message }}
+        </div>
+        <div
+          v-else
+          :key="i"
+          class="rounded-lg my-2 pa-2 message"
+          :class="{ left: !item.fromMe, 'ml-auto right': item.fromMe }"
+        >
+          {{ item.message }}
+        </div>
+      </template>
 
       <div id="lastMsg"></div>
     </ScrollableCard>
@@ -185,6 +194,7 @@ export default {
   width: fit-content;
   height: fit-content;
   position: relative;
+  background-color: yellow;
 }
 
 .left {

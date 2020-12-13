@@ -38,6 +38,12 @@ io.on("connection", (socket) => {
     online.push(newUser);
 
     io.emit("usersOnline", online);
+
+    socket.broadcast.emit("message", {
+      message: `${newUser.username} joined convo`,
+      sender: socket.id,
+      broadcast: true,
+    });
   });
 
   socket.on("disconnect", () => {
