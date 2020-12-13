@@ -3,7 +3,9 @@ const state = {
   username: "",
   chatId: "",
   usersOnline: [],
+
   messages: {},
+  unread: {},
 };
 
 const getters = {
@@ -20,36 +22,38 @@ const getters = {
 
 const actions = {
   updateStateData({ commit }, payload) {
-    const target = payload.statename;
-    const { data } = payload;
+    const { statename, data } = payload;
+    const { sender, recipient, fromMe } = data;
+    const location = fromMe ? recipient : sender;
 
-    if (target === "messages") {
-      commit("HANDLE_MESSAGES", payload);
-      return;
-    }
+    if (statename === "messages") {
+      commit("UPDATE_OBJECT", { ...payload, location });
+    } else commit("MAKE_ASSIGNMENT", { statename, data });
 
-    commit("MAKE_UPDATE", { target, data });
+    commit("UPDATE_OBJECT", { ...payload, statename: "unread", location });
   },
 };
 
 const mutations = {
-  MAKE_UPDATE(state, payload) {
-    state[payload.target] = payload.data;
+  MAKE_ASSIGNMENT(state, payload) {
+    const { statename, data } = payload;
+    state[statename] = data;
   },
 
-  HANDLE_MESSAGES(state, payload) {
-    const { statename, data } = payload;
-    const { sender, recipient, fromMe } = data;
+  UPDATE_OBJECT(state, payload) {
+    const { data, location, statename } = payload;
+    const prevData = state[statename];
 
-    const location = fromMe ? recipient : sender;
+    if (statename === "unread") {
+      const val = prevData[location];
+      if (state.chatId === location) prevData[location] = 0;
+      else prevData[location] = val + 1 || 1;
+    } else {
+      if (!prevData[location]) prevData[location] = [];
+      prevData[location].push(data);
+    }
 
-    const prevMsgs = state[statename];
-
-    if (!prevMsgs[location]) prevMsgs[location] = [];
-
-    prevMsgs[location].push(data);
-
-    state[statename] = { ...state[statename], ...prevMsgs };
+    state[statename] = { ...state[statename], ...prevData };
   },
 };
 

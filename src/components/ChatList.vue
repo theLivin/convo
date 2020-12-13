@@ -28,7 +28,14 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-chip small rounded class="pa-2"> {{ index }} </v-chip>
+            <v-chip
+              v-if="unread[user.id] > 0"
+              small
+              rounded
+              class="red white--text pa-2"
+            >
+              {{ unread[user.id] }}
+            </v-chip>
           </v-list-item-action>
         </v-list-item>
 
@@ -50,6 +57,14 @@ export default {
   computed: {
     usersOnline() {
       return this.$store.getters.getStateData("usersOnline");
+    },
+
+    unread() {
+      return this.$store.getters.getStateData("unread");
+    },
+
+    messages() {
+      return this.$store.getters.getStateData("messages");
     },
   },
 
