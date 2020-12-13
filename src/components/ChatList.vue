@@ -1,16 +1,12 @@
 <template>
-  <v-list color="transparent" dense class="ma-0 pa-0 d-flex">
+  <v-list color="transparent" dense class="ma-0 pa-0">
     <v-list-item-group>
       <v-chip v-if="usersOnline.length <= 0" class="my-2 ml-4 primary"
         >establishing connection...</v-chip
       >
 
       <template v-for="(user, index) in usersOnline">
-        <v-list-item
-          class="align-center"
-          :key="user.id"
-          @click="startChat(user.id)"
-        >
+        <v-list-item :key="user.id" @click="startChat(user.id)">
           <v-list-item-avatar size="40">
             <v-img :src="user.image"></v-img>
           </v-list-item-avatar>
@@ -23,7 +19,7 @@
 
             <v-list-item-subtitle
               class="text--primary"
-              v-text="user.id"
+              v-text="messagePreview(user.id)"
             ></v-list-item-subtitle>
           </v-list-item-content>
 
@@ -85,6 +81,15 @@ export default {
         statename: "chatId",
         data: id,
       });
+    },
+
+    messagePreview(id) {
+      if (!this.messages[id]) return null;
+      else {
+        const msgs = this.messages[id];
+        const len = msgs.length;
+        return msgs[len - 1].message;
+      }
     },
   },
 };
