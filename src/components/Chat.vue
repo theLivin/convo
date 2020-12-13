@@ -76,7 +76,6 @@
 </template>
 
 <script>
-import Push from "push.js";
 import ScrollableCard from "./ScrollableCard.vue";
 import { mapActions } from "vuex";
 
@@ -98,6 +97,10 @@ export default {
   computed: {
     chatId() {
       return this.$store.getters.getStateData("chatId");
+    },
+
+    myProfile() {
+      return this.$store.getters.myProfile;
     },
 
     messages() {
@@ -135,12 +138,6 @@ export default {
     },
 
     message(payload) {
-      const { message, recipient, sender } = payload;
-      // console.log(payload);
-      console.log(recipient);
-      console.log(sender);
-      console.log(message);
-      Push.create(message);
       this.updateStateData({
         statename: "messages",
         data: payload,
@@ -160,19 +157,23 @@ export default {
 
     sendMessage() {
       if (this.newMessage.length <= 0 || this.chatId.length <= 0) return;
-      console.log(this.newMessage);
+
+      const message = this.newMessage;
+      const recipient = this.chatId;
 
       this.$socket.emit("message", {
-        message: this.newMessage,
-        target: this.chatId,
+        message,
+        recipient,
+        username: this.myProfile.username,
+        image: this.myProfile.image,
       });
 
       this.updateStateData({
         statename: "messages",
         data: {
-          message: this.newMessage,
+          message,
+          recipient,
           fromMe: true,
-          recipient: this.chatId,
         },
       });
 

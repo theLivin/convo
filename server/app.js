@@ -2,6 +2,7 @@ const app = require("express")();
 const cors = require("cors");
 app.use(cors());
 const server = require("http").createServer(app);
+const APP_NAME = "convo";
 
 const io = require("socket.io")(server, {
   cors: {
@@ -41,7 +42,8 @@ io.on("connection", (socket) => {
     io.emit("usersOnline", online);
 
     socket.to("online").emit("message", {
-      message: `${newUser.username} joined convo`,
+      message: `${newUser.username} joined ${APP_NAME}`,
+      username: APP_NAME,
       sender: socket.id,
       broadcast: true,
     });
@@ -51,7 +53,6 @@ io.on("connection", (socket) => {
 
   socket.on("typing", (payload) => {
     const data = { ...payload, sender: socket.id };
-    console.log(data);
     socket.to(data.recipient).emit("typing", data);
   });
 
@@ -62,12 +63,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message", (payload) => {
-    console.log(payload);
-    const { message, target } = payload;
-    io.to(target).emit("message", {
-      message: message,
+    io.to(payload.recipient).emit("message", {
+      ...payload,
       sender: socket.id,
-      recipient: target,
     });
   });
 });

@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import Push from "push.js";
 import Home from "@/components/Home";
 import { mapActions } from "vuex";
 
@@ -61,11 +62,31 @@ export default {
     dialog: true,
     newUsername: "",
     about: "",
+    insideApp: false,
+    snackbar: true,
   }),
 
   computed: {
     username() {
       return this.$store.getters.getStateData("username");
+    },
+  },
+
+  sockets: {
+    message(payload) {
+      const { message, username } = payload;
+
+      if (!this.insideApp) {
+        Push.create(username, {
+          body: message,
+          icon: require("./assets/logo.png"),
+          timeout: 5000,
+          onClick: function() {
+            window.focus();
+            this.close();
+          },
+        });
+      }
     },
   },
 
@@ -84,10 +105,6 @@ export default {
         data: this.about,
       });
 
-      this.handleJoin();
-    },
-
-    handleJoin() {
       this.$socket.emit("joined", {
         username: this.username,
         about: this.about,
@@ -97,7 +114,13 @@ export default {
   },
 
   mounted() {
-    if (this.username.length > 0) this.handleJoin();
+    window.addEventListener("blur", () => {
+      this.insideApp = false;
+    });
+
+    window.addEventListener("focus", () => {
+      this.insideApp = true;
+    });
   },
 };
 </script>
