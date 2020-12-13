@@ -4,11 +4,12 @@
       <!-- top bar -->
       <v-col cols="12">
         <v-card
-          color="orange lighten-2 white--text"
+          color="primary"
+          dark
           :height="topbarHeight"
           class="rounded-0 rounded-t d-flex align-center justify-center"
         >
-          <h2>convo</h2>
+          <h3 class="font-weight-regular">convo</h3>
         </v-card>
       </v-col>
 

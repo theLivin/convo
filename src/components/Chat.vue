@@ -4,22 +4,44 @@
     <div style="height: 10%" class="overflow-hidden">
       <v-list dense color="transparent" class="d-flex" height="100%">
         <v-list-item class="align-center">
-          <v-list-item-avatar size="35">
-            <v-img :src="otheruser.image"></v-img>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title class="font-weight-bold">{{
-              otheruser.username
-            }}</v-list-item-title>
-            <v-list-item-subtitle>
-              {{ additionalInfo }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
+          <template v-if="this.chatId.length > 0">
+            <v-list-item-avatar size="35">
+              <v-img :src="otheruser.image"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-bold">{{
+                otheruser.username
+              }}</v-list-item-title>
+              <v-list-item-subtitle>
+                {{ additionalInfo }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
+
+          <template v-else>
+            <v-list-item-avatar size="35">
+              <v-img :src="myProfile.image"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="font-weight-bold"
+                >Saved Messages</v-list-item-title
+              >
+              <v-list-item-subtitle>
+                <template v-if="myProfile.username">
+                  {{ usersOnline.length }} connection{{
+                    usersOnline.length !== 1 ? "s" : ""
+                  }}
+                </template>
+
+                <template v-else>connecting...</template>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </template>
         </v-list-item>
       </v-list>
     </div>
 
-    <!-- messages area -->
+    <!-- chat area -->
     <ScrollableCard
       :attributes="{
         height: '80%',
@@ -30,14 +52,15 @@
         <div
           v-if="item.broadcast"
           :key="i"
-          class="rounded-xl my-2 pa-2 message mx-auto"
+          class="rounded-xl my-2 px-2 py-1 message mx-auto secondary white--text"
+          style="font-size:small"
         >
           {{ item.message }}
         </div>
         <div
           v-else
           :key="i"
-          class="rounded-lg my-2 pa-2 message"
+          class="rounded-lg my-2 px-2 py-1 message"
           :class="{ left: !item.fromMe, 'ml-auto right': item.fromMe }"
         >
           {{ item.message }}
@@ -47,11 +70,8 @@
       <div id="lastMsg"></div>
     </ScrollableCard>
 
-    <!-- message form -->
-    <div
-      style="height:10%; background-color: #f0f0f0"
-      class="rounded-0 rounded-br overflow-hidden"
-    >
+    <!-- form -->
+    <div style="height:10%;" class="rounded-0 rounded-br overflow-hidden">
       <v-form class="my-1" @submit.prevent="sendMessage">
         <v-row no-gutters>
           <v-col cols="12">
@@ -99,13 +119,20 @@ export default {
       return this.$store.getters.getStateData("chatId");
     },
 
+    usersOnline() {
+      return this.$store.getters.getStateData("usersOnline");
+    },
+
     myProfile() {
       return this.$store.getters.myProfile;
     },
 
     messages() {
       const allMessages = this.$store.getters.getStateData("messages");
-      return allMessages[this.chatId] || [];
+      const loc = this.chatId;
+      const myloc = this.myProfile.id;
+      if (loc.length > 0) return allMessages[loc] || [];
+      else return allMessages[myloc] || [];
     },
 
     otheruser() {
@@ -156,17 +183,20 @@ export default {
     ...mapActions(["updateStateData"]),
 
     sendMessage() {
-      if (this.newMessage.length <= 0 || this.chatId.length <= 0) return;
+      if (this.newMessage.length <= 0) return;
 
       const message = this.newMessage;
-      const recipient = this.chatId;
+      let recipient = this.myProfile.id;
 
-      this.$socket.emit("message", {
-        message,
-        recipient,
-        username: this.myProfile.username,
-        image: this.myProfile.image,
-      });
+      if (this.chatId.length > 0) {
+        recipient = this.chatId;
+        this.$socket.emit("message", {
+          message,
+          recipient,
+          username: this.myProfile.username,
+          image: this.myProfile.image,
+        });
+      }
 
       this.updateStateData({
         statename: "messages",
@@ -202,24 +232,23 @@ export default {
 .chat {
   /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../assets/wallpaper.jpg"); */
-  /* background-image: url("../assets/wallpaper.png");
-  background-size: cover; */
-  background-color: #f0f0f0;
+
+  background-image: url("../assets/wallpaper.png");
+  background-size: cover;
 }
 
 .message {
   width: fit-content;
   height: fit-content;
   position: relative;
-  background-color: yellow;
 }
 
 .left {
-  background-color: skyblue;
+  background-color: var(--v-secondary-base);
 }
 
 .right {
-  background-color: tomato;
+  background-color: var(--v-primary-base);
 }
 
 /* create callout */
@@ -248,26 +277,26 @@ export default {
 }
 
 .left:before {
-  border-top: 11px solid skyblue;
+  border-top: 11px solid var(--v-secondary-base);
   top: -0px;
   left: -9px;
 }
 
 .left:after {
-  border-top: 10px solid skyblue;
+  border-top: 10px solid var(--v-secondary-base);
   top: 0;
   left: -8px;
 }
 
 .right:before {
-  border-bottom: 11px solid tomato;
+  border-bottom: 11px solid var(--v-primary-base);
   color: white;
   bottom: 0px;
   right: -9px;
 }
 
 .right:after {
-  border-bottom: 10px solid tomato;
+  border-bottom: 10px solid var(--v-primary-base);
   color: white;
   bottom: 0;
   right: -8px;

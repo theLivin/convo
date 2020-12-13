@@ -29,9 +29,24 @@
         </div>
       </div>
     </v-img>
-    <div class="pa-3">
-      <p class="grey--text mb-1">About</p>
+
+    <div class="pa-3" v-if="myProfile.about && myProfile.about.length > 0">
+      <p class="mb-1">About</p>
       <p>{{ myProfile.about }}</p>
+    </div>
+
+    <div class="footer">
+      <v-card flat tile dark class="pa-2 primary">
+        <a
+          href="https://github.com/theLivin/convo"
+          class="d-flex align-center justify-center"
+          style="text-decoration:none; color:inherit"
+          target="_blank"
+        >
+          <v-icon class="mr-1">mdi-github</v-icon>
+          <span>theLivin</span>
+        </a>
+      </v-card>
     </div>
   </div>
 </template>
@@ -44,6 +59,8 @@ export default {
 
   data: () => ({
     notify: false,
+
+    icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
   }),
 
   computed: {
@@ -74,12 +91,20 @@ export default {
 </script>
 
 <style scoped>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 .notification {
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
+
 @keyframes shake {
   10%,
   90% {

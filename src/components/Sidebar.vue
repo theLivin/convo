@@ -3,27 +3,25 @@
     style="height: 100%;position:relative"
     class="rounded-bl overflow-hidden"
   >
-    <!-- user info -->
-    <div style="height:11%; background-color:tomato" class="overflow-hidden">
-      <v-list dense color="transparent" class="d-flex" height="100%">
+    <!-- upper -->
+    <div style="height:11%;" class="overflow-hidden">
+      <v-list dense class="d-flex" height="100%">
         <v-list-item class="align-center">
           <v-app-bar-nav-icon
             @click.stop="drawer = !drawer"
             class="mr-1"
           ></v-app-bar-nav-icon>
-          <v-text-field
-            filled
-            rounded
-            placeholder="search"
-            dense
-            hide-details
-            single-line
-            v-model="search"
-          ></v-text-field> </v-list-item
-      ></v-list>
+          <v-spacer />
+
+          <v-icon class="mr-3" @click="toggleDarkTheme"
+            >mdi-theme-light-dark</v-icon
+          >
+          <v-icon @click="viewSavedMsgs">mdi-bookmark</v-icon>
+        </v-list-item></v-list
+      >
     </div>
 
-    <!-- users online -->
+    <!-- lower-->
     <ScrollableCard
       :attributes="{
         height: '89%',
@@ -43,6 +41,8 @@
 import ChatList from "./ChatList";
 import Drawer from "./Drawer";
 import ScrollableCard from "./ScrollableCard";
+
+import { mapActions } from "vuex";
 
 export default {
   name: "Sidebar",
@@ -65,6 +65,21 @@ export default {
 
     usersOnline() {
       return this.$store.getters.getStateData("usersOnline");
+    },
+  },
+
+  methods: {
+    ...mapActions(["updateStateData"]),
+
+    viewSavedMsgs() {
+      this.updateStateData({
+        statename: "chatId",
+        data: "",
+      });
+    },
+
+    toggleDarkTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
   },
 };

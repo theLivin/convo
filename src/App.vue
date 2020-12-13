@@ -5,37 +5,40 @@
         <v-col cols="12" md="8">
           <Home />
 
-          <v-dialog v-model="dialog" persistent max-width="290">
+          <v-dialog v-model="dialog" persistent max-width="320">
             <v-card>
-              <v-toolbar dense>
-                <v-spacer /><v-toolbar-title>convo</v-toolbar-title><v-spacer />
-              </v-toolbar>
+              <v-card-title class="primary--text font-weight-bold">
+                <v-spacer />convo<v-spacer />
+              </v-card-title>
 
-              <v-card-text class="py-6">
+              <v-card-text>
                 <v-form @submit.prevent="onSubmit">
-                  <v-text-field
-                    single-line
-                    hide-details
-                    rounded
-                    dense
-                    outlined
-                    label="Enter username"
-                    v-model="newUsername"
-                  ></v-text-field>
+                  <v-row>
+                    <v-col cols="12"
+                      ><v-text-field
+                        v-bind="inputProps"
+                        label="username"
+                        v-model="newUsername"
+                      ></v-text-field
+                    ></v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-bind="inputProps"
+                        label="something about you."
+                        v-model="about"
+                      ></v-text-field>
+                    </v-col>
 
-                  <v-text-field
-                    single-line
-                    hide-details
-                    rounded
-                    dense
-                    outlined
-                    label="What's on your mind?"
-                    v-model="about"
-                  ></v-text-field>
-
-                  <v-btn type="submit" block rounded class="primary mt-3"
-                    >join</v-btn
-                  >
+                    <v-col cols="12">
+                      <v-btn
+                        type="submit"
+                        depressed
+                        class="primary text-none"
+                        :disabled="newUsername.length > 0 ? false : true"
+                        >join</v-btn
+                      >
+                    </v-col>
+                  </v-row>
                 </v-form>
               </v-card-text>
             </v-card>
@@ -64,6 +67,14 @@ export default {
     about: "",
     insideApp: false,
     snackbar: true,
+
+    inputProps: {
+      "single-line": true,
+      "hide-details": true,
+      // rounded: true,
+      dense: true,
+      outlined: true,
+    },
   }),
 
   computed: {

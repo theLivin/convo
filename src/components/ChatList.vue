@@ -1,10 +1,6 @@
 <template>
   <v-list color="transparent" dense class="ma-0 pa-0">
-    <v-list-item-group>
-      <v-chip v-if="usersOnline.length <= 0" class="my-2 ml-4 primary"
-        >establishing connection...</v-chip
-      >
-
+    <v-list-item-group v-if="username.length > 0">
       <template v-for="(user, index) in usersOnline">
         <v-list-item :key="user.id" @click="startChat(user.id)">
           <v-list-item-avatar size="40">
@@ -28,7 +24,7 @@
               v-if="unread[user.id] > 0"
               small
               rounded
-              class="red white--text pa-2"
+              class="primary white--text pa-2"
             >
               {{ unread[user.id] }}
             </v-chip>
@@ -61,6 +57,10 @@ export default {
 
     messages() {
       return this.$store.getters.getStateData("messages");
+    },
+
+    username() {
+      return this.$store.getters.getStateData("username");
     },
   },
 
