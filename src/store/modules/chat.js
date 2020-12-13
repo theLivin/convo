@@ -1,6 +1,7 @@
 const state = {
   id: "",
   username: "",
+  about: "",
   chatId: "",
   usersOnline: [],
 
@@ -26,11 +27,17 @@ const actions = {
     const { sender, recipient, fromMe } = data;
     const location = fromMe ? recipient : sender;
 
+    if (statename === "meta") {
+      commit("UPDATE_USER_META", { ...payload, location });
+      return;
+    }
+
     if (statename === "messages") {
       commit("UPDATE_OBJECT", { ...payload, location });
     } else commit("MAKE_ASSIGNMENT", { statename, data });
 
     commit("UPDATE_OBJECT", { ...payload, statename: "unread", location });
+    commit("UPDATE_USER_META", { location, data: null });
   },
 };
 
@@ -54,6 +61,20 @@ const mutations = {
     }
 
     state[statename] = { ...state[statename], ...prevData };
+  },
+
+  UPDATE_USER_META(state, payload) {
+    const { location, data } = payload;
+    if (!location) return;
+
+    let prevOnline = state["usersOnline"];
+
+    prevOnline = prevOnline.map((user) => {
+      if (user.id === location) user.meta = data;
+      return user;
+    });
+
+    state["usersOnline"] = prevOnline;
   },
 };
 

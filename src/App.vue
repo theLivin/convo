@@ -23,6 +23,16 @@
                     v-model="newUsername"
                   ></v-text-field>
 
+                  <v-text-field
+                    single-line
+                    hide-details
+                    rounded
+                    dense
+                    outlined
+                    label="What's on your mind?"
+                    v-model="about"
+                  ></v-text-field>
+
                   <v-btn type="submit" block rounded class="primary mt-3"
                     >join</v-btn
                   >
@@ -50,6 +60,7 @@ export default {
   data: () => ({
     dialog: true,
     newUsername: "",
+    about: "",
   }),
 
   computed: {
@@ -68,12 +79,19 @@ export default {
         statename: "username",
         data: this.newUsername,
       });
+      this.updateStateData({
+        statename: "about",
+        data: this.about,
+      });
 
       this.handleJoin();
     },
 
     handleJoin() {
-      this.$socket.emit("joined", { username: this.username });
+      this.$socket.emit("joined", {
+        username: this.username,
+        about: this.about,
+      });
       this.dialog = false;
     },
   },

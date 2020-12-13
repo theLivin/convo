@@ -26,24 +26,19 @@ io.on("connection", (socket) => {
 
   socket.on("joined", (payload) => {
     const sprites = ["bottts", "avataaars", "gridy"];
-    // const sprites = ["avataaars"];
     const seed = Math.floor(Math.random() * 5000);
     const rand = Math.floor(Math.random() * sprites.length);
 
     const newUser = {
       id: socket.id,
       username: payload.username,
+      about: payload.about,
+      meta: null,
       image: `https://avatars.dicebear.com/api/${sprites[rand]}/${seed}.svg`,
     };
     online.push(newUser);
 
     io.emit("usersOnline", online);
-
-    // socket.broadcast.emit("message", {
-    //   message: `${newUser.username} joined convo`,
-    //   sender: socket.id,
-    //   broadcast: true,
-    // });
 
     socket.to("online").emit("message", {
       message: `${newUser.username} joined convo`,
@@ -52,6 +47,12 @@ io.on("connection", (socket) => {
     });
 
     socket.join("online");
+  });
+
+  socket.on("typing", (payload) => {
+    const data = { ...payload, sender: socket.id };
+    console.log(data);
+    socket.to(data.recipient).emit("typing", data);
   });
 
   socket.on("disconnect", () => {

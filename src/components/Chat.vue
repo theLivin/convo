@@ -5,13 +5,15 @@
       <v-list dense color="transparent" class="d-flex" height="100%">
         <v-list-item class="align-center">
           <v-list-item-avatar size="35">
-            <v-img :src="chatInfo.image"></v-img>
+            <v-img :src="otheruser.image"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="font-weight-bold">{{
-              chatInfo.username
+              otheruser.username
             }}</v-list-item-title>
-            <v-list-item-subtitle>additional info</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              {{ additionalInfo }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -63,6 +65,8 @@
               class="mx-1"
               placeholder="Type a message"
               v-model="newMessage"
+              @keyup="handleTyping($event, true)"
+              @blur="handleTyping($event, false)"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -89,7 +93,6 @@ export default {
 
   data: () => ({
     newMessage: "",
-    // messages: [],
   }),
 
   computed: {
@@ -102,9 +105,16 @@ export default {
       return allMessages[this.chatId] || [];
     },
 
-    chatInfo() {
+    otheruser() {
       const usersOnline = this.$store.getters.getStateData("usersOnline");
       return usersOnline.filter((user) => user.id === this.chatId)[0] || {};
+    },
+
+    additionalInfo() {
+      const { meta } = this.otheruser;
+      if (meta && meta.isTyping) return "typing...";
+      else if (!this.chatId) return null;
+      else return "online";
     },
   },
 
@@ -118,7 +128,6 @@ export default {
     },
 
     established(payload) {
-      // console.log(payload);
       this.updateStateData({
         statename: "id",
         data: payload.id,
@@ -134,6 +143,13 @@ export default {
       Push.create(message);
       this.updateStateData({
         statename: "messages",
+        data: payload,
+      });
+    },
+
+    typing(payload) {
+      this.updateStateData({
+        statename: "meta",
         data: payload,
       });
     },
@@ -165,6 +181,17 @@ export default {
 
     requestPush() {
       Push.Permission.request();
+    },
+
+    handleTyping(event, isTyping) {
+      const { value } = event.target;
+      if (this.chatId.length > 0 && value.length >= 0) {
+        this.$socket.emit("typing", {
+          recipient: this.chatId,
+          value,
+          isTyping,
+        });
+      }
     },
   },
 
