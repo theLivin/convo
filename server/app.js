@@ -39,11 +39,19 @@ io.on("connection", (socket) => {
 
     io.emit("usersOnline", online);
 
-    socket.broadcast.emit("message", {
+    // socket.broadcast.emit("message", {
+    //   message: `${newUser.username} joined convo`,
+    //   sender: socket.id,
+    //   broadcast: true,
+    // });
+
+    socket.to("online").emit("message", {
       message: `${newUser.username} joined convo`,
       sender: socket.id,
       broadcast: true,
     });
+
+    socket.join("online");
   });
 
   socket.on("disconnect", () => {
