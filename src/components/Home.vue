@@ -15,7 +15,7 @@
       <!-- left pane -->
       <v-col cols="4">
         <v-card :height="paneHeight" class="rounded-0 rounded-bl"
-          ><ChatList
+          ><Sidebar
         /></v-card>
       </v-col>
 
@@ -31,14 +31,14 @@
 
 <script>
 import Chat from "./Chat";
-import ChatList from "./ChatList";
+import Sidebar from "./Sidebar";
 
 export default {
   name: "Home",
 
   components: {
     Chat,
-    ChatList,
+    Sidebar,
   },
 
   data: () => ({

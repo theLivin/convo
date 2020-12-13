@@ -12,6 +12,10 @@ const getters = {
       return state.usersOnline.filter((user) => user.id !== state.id);
     return state[target];
   },
+
+  myProfile() {
+    return state.usersOnline.filter((user) => user.id === state.id)[0] || {};
+  },
 };
 
 const actions = {

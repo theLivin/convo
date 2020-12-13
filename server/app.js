@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
   io.to(socket.id).emit("established", { id: socket.id });
 
   socket.on("joined", (payload) => {
-    const sprites = ["human", "bottts", "avataaars", "gridy"];
+    const sprites = ["bottts", "avataaars", "gridy"];
     // const sprites = ["avataaars"];
     const seed = Math.floor(Math.random() * 5000);
     const rand = Math.floor(Math.random() * sprites.length);
