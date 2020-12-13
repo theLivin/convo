@@ -1,27 +1,33 @@
 <template>
-  <v-img
-    height="150px"
-    src="https://loremflickr.com/320/240/sky,animals/all"
-    gradient="to top right,rgba(108, 128, 243, 0.33), rgba(25,32,72,.7)"
-  >
-    <div class="d-flex flex-no-wrap justify-space-between pa-3 white--text">
-      <div class="text-center">
-        <v-avatar size="75">
-          <v-img :src="myProfile.image"></v-img>
-        </v-avatar>
-        <h4 class="white--text">{{ myProfile.username }}</h4>
-      </div>
+  <div class="ma-0">
+    <v-img
+      height="150px"
+      src="https://loremflickr.com/320/240/sky,animals/all"
+      gradient="to top right,rgba(108, 128, 243, 0.33), rgba(25,32,72,.7)"
+    >
+      <div class="d-flex flex-no-wrap justify-space-between pa-3 white--text">
+        <div class="text-center">
+          <v-avatar size="75">
+            <v-img :src="myProfile.image"></v-img>
+          </v-avatar>
+          <h4 class="white--text">{{ myProfile.username }}</h4>
+        </div>
 
-      <div>
-        <v-card-actions>
-          <v-btn icon @click="toggleNotify()" color="white" small>
-            <v-icon class="notification" v-if="notify">mdi-bell-ring</v-icon>
-            <v-icon v-else>mdi-bell-off</v-icon>
-          </v-btn>
-        </v-card-actions>
+        <div>
+          <v-card-actions>
+            <v-btn icon @click="toggleNotify()" color="white" small>
+              <v-icon class="notification" v-if="notify">mdi-bell-ring</v-icon>
+              <v-icon v-else>mdi-bell-off</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </div>
       </div>
+    </v-img>
+    <div class="pa-3">
+      <p class="grey--text mb-1">About</p>
+      <p>{{ myProfile.about }}</p>
     </div>
-  </v-img>
+  </div>
 </template>
 
 <script>
