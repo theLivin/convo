@@ -179,10 +179,6 @@ export default {
       this.newMessage = "";
     },
 
-    requestPush() {
-      Push.Permission.request();
-    },
-
     handleTyping(event, isTyping) {
       const { value } = event.target;
       if (this.chatId.length > 0 && value.length >= 0) {
@@ -196,13 +192,6 @@ export default {
   },
 
   mounted() {
-    console.log(Push.Permission.get());
-    Push.Permission.request(
-      () => {
-        console.log("permission granted");
-      },
-      () => console.log("permission not granted")
-    );
     scrollToLastMsg();
   },
 };
