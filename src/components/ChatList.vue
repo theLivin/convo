@@ -1,6 +1,10 @@
 <template>
   <v-list color="transparent" dense class="ma-0 pa-0 d-flex">
     <v-list-item-group>
+      <v-chip v-if="usersOnline.length <= 0" class="my-2 ml-4 primary"
+        >establishing connection...</v-chip
+      >
+
       <template v-for="(user, index) in usersOnline">
         <v-list-item
           class="align-center"
@@ -33,10 +37,6 @@
           :key="index"
         ></v-divider>
       </template>
-
-      <v-chip v-if="usersOnline.length <= 0" class="d-block my-2 mx-3"
-        >no one is online at the moment</v-chip
-      >
     </v-list-item-group>
   </v-list>
 </template>
