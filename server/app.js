@@ -6,11 +6,7 @@ const APP_NAME = "convo";
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: [
-      "http://192.168.8.170:8080",
-      "http://localhost:8080",
-      "https://con-vo.netlify.app",
-    ],
+    origin: ["http://localhost:8080", "https://myconvo.netlify.app"],
     methods: ["GET", "POST"],
     credentials: true,
   },
