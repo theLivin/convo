@@ -2,7 +2,7 @@
   <div style="height: 100%;">
     <!-- top -->
     <div style="height: 10%" class="overflow-hidden">
-      <v-list dense color="transparent" class="d-flex" height="100%">
+      <v-list dense class="d-flex tertiary" height="100%">
         <v-list-item class="align-center">
           <template v-if="this.chatId.length > 0">
             <v-list-item-avatar size="35">
@@ -52,8 +52,7 @@
         <div
           v-if="item.broadcast"
           :key="i"
-          class="rounded-xl my-2 px-2 py-1 message mx-auto secondary white--text"
-          style="font-size:small"
+          class="rounded-xl my-2 px-2 py-1 message mx-auto tertiary"
         >
           {{ item.message }}
         </div>
@@ -71,7 +70,11 @@
     </ScrollableCard>
 
     <!-- form -->
-    <div style="height:10%;" class="rounded-0 rounded-br overflow-hidden">
+    <div
+      style="height:10%;"
+      class="rounded-0 rounded-br overflow-hidden"
+      id="formDiv"
+    >
       <v-form class="my-1" @submit.prevent="sendMessage">
         <v-row no-gutters>
           <v-col cols="12">
@@ -149,21 +152,6 @@ export default {
   },
 
   sockets: {
-    connect() {
-      console.log("connected");
-    },
-
-    disconnect() {
-      console.log("disconnected");
-    },
-
-    established(payload) {
-      this.updateStateData({
-        statename: "id",
-        data: payload.id,
-      });
-    },
-
     message(payload) {
       this.updateStateData({
         statename: "messages",
@@ -229,12 +217,16 @@ export default {
 </script>
 
 <style scoped>
-.chat {
-  /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../assets/wallpaper.jpg"); */
+#formDiv {
+  background-color: var(--v-tertiary-base);
+}
 
-  background-image: url("../assets/wallpaper.png");
-  background-size: cover;
+.chat {
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../assets/wallpaper.png"); */
+
+  /* background-image: url("../assets/wallpaper.png"); */
+  /* background-size: cover; */
 }
 
 .message {

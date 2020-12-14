@@ -2,7 +2,7 @@
   <v-app>
     <v-container fill-height>
       <v-row align="center" justify="center">
-        <v-col cols="12" md="8">
+        <v-col cols="12" md="9">
           <Home />
 
           <v-dialog v-model="dialog" persistent max-width="320">
@@ -24,7 +24,7 @@
                     <v-col cols="12">
                       <v-text-field
                         v-bind="inputProps"
-                        label="something about you."
+                        label="something about you"
                         v-model="about"
                       ></v-text-field>
                     </v-col>
@@ -84,6 +84,21 @@ export default {
   },
 
   sockets: {
+    connect() {
+      console.log("connected");
+    },
+
+    disconnect() {
+      console.log("disconnected");
+    },
+
+    established(payload) {
+      this.updateStateData({
+        statename: "id",
+        data: payload.id,
+      });
+    },
+
     message(payload) {
       const { message, username } = payload;
 

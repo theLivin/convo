@@ -5,7 +5,6 @@
       <v-col cols="12">
         <v-card
           color="primary"
-          dark
           :height="topbarHeight"
           class="rounded-0 rounded-t d-flex align-center justify-center"
         >

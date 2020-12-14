@@ -4,8 +4,8 @@
     class="rounded-bl overflow-hidden"
   >
     <!-- upper -->
-    <div style="height:11%;" class="overflow-hidden">
-      <v-list dense class="d-flex" height="100%">
+    <div style="height:10%;" class="overflow-hidden">
+      <v-list dense class="d-flex tertiary" height="100%">
         <v-list-item class="align-center">
           <v-app-bar-nav-icon
             @click.stop="drawer = !drawer"
@@ -24,14 +24,14 @@
     <!-- lower-->
     <ScrollableCard
       :attributes="{
-        height: '89%',
+        height: '90%',
         class: 'rounded-0 rounded-bl',
       }"
     >
       <ChatList />
     </ScrollableCard>
 
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" absolute temporary width="100%">
       <Drawer />
     </v-navigation-drawer>
   </div>

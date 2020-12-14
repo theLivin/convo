@@ -1,34 +1,30 @@
 <template>
   <div class="ma-0">
-    <v-img
+    <v-card color="tertiary" flat tile>
+      <!-- <v-img
       height="150px"
       src="https://loremflickr.com/320/240/sky,animals/all"
-      gradient="to top right,rgba(108, 128, 243, 0.33), rgba(25,32,72,.7)"
-    >
-      <div class="d-flex flex-no-wrap justify-space-between pa-3 white--text">
+      gradient="to top right,rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)"
+    > -->
+      <div class="d-flex flex-no-wrap justify-space-between pa-3">
         <div class="text-center">
           <v-avatar size="75">
             <v-img :src="myProfile.image"></v-img>
           </v-avatar>
-          <h4 class="white--text">{{ myProfile.username }}</h4>
+          <h4>{{ myProfile.username }}</h4>
         </div>
 
         <div>
           <v-card-actions>
-            <v-btn
-              icon
-              @click="toggleNotify()"
-              color="white"
-              class="mt-2"
-              small
-            >
+            <v-btn icon @click="toggleNotify()" class="mt-2" small>
               <v-icon class="notification" v-if="notify">mdi-bell-ring</v-icon>
               <v-icon v-else>mdi-bell-off</v-icon>
             </v-btn>
           </v-card-actions>
         </div>
       </div>
-    </v-img>
+      <!-- </v-img> -->
+    </v-card>
 
     <div class="pa-3" v-if="myProfile.about && myProfile.about.length > 0">
       <p class="mb-1">About</p>
@@ -36,7 +32,7 @@
     </div>
 
     <div class="footer">
-      <v-card flat tile dark class="pa-2 primary">
+      <v-card color="tertiary" flat tile class="pa-2">
         <a
           href="https://github.com/theLivin/convo"
           class="d-flex align-center justify-center"
