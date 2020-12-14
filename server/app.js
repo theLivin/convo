@@ -2,7 +2,7 @@ const app = require("express")();
 const cors = require("cors");
 app.use(cors());
 const server = require("http").createServer(app);
-const APP_NAME = "convo";
+const APP_NAME = "Convo";
 
 const io = require("socket.io")(server, {
   cors: {
