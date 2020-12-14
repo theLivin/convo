@@ -1,51 +1,6 @@
 <template>
   <v-app>
-    <!-- <v-container fill-height>
-      <v-row align="center" justify="center">
-        <v-col cols="12" md="9"> -->
     <Home />
-
-    <v-dialog v-model="dialog" persistent max-width="320">
-      <v-card>
-        <v-card-title class="primary--text font-weight-bold">
-          <v-spacer />convo<v-spacer />
-        </v-card-title>
-
-        <v-card-text>
-          <v-form @submit.prevent="onSubmit">
-            <v-row>
-              <v-col cols="12"
-                ><v-text-field
-                  v-bind="inputProps"
-                  label="username"
-                  v-model="newUsername"
-                ></v-text-field
-              ></v-col>
-              <v-col cols="12">
-                <v-text-field
-                  v-bind="inputProps"
-                  label="something about you"
-                  v-model="about"
-                ></v-text-field>
-              </v-col>
-
-              <v-col cols="12">
-                <v-btn
-                  type="submit"
-                  depressed
-                  class="primary text-none"
-                  :disabled="newUsername.length > 0 ? false : true"
-                  >join</v-btn
-                >
-              </v-col>
-            </v-row>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-    <!-- </v-col>
-      </v-row>
-    </v-container> -->
   </v-app>
 </template>
 
@@ -62,26 +17,8 @@ export default {
   },
 
   data: () => ({
-    dialog: true,
-    newUsername: "",
-    about: "",
     insideApp: false,
-    snackbar: true,
-
-    inputProps: {
-      "single-line": true,
-      "hide-details": true,
-      // rounded: true,
-      dense: true,
-      outlined: true,
-    },
   }),
-
-  computed: {
-    username() {
-      return this.$store.getters.getStateData("username");
-    },
-  },
 
   sockets: {
     connect() {
@@ -118,25 +55,6 @@ export default {
 
   methods: {
     ...mapActions(["updateStateData"]),
-
-    onSubmit() {
-      if (this.newUsername.length <= 0) return;
-
-      this.updateStateData({
-        statename: "username",
-        data: this.newUsername,
-      });
-      this.updateStateData({
-        statename: "about",
-        data: this.about,
-      });
-
-      this.$socket.emit("joined", {
-        username: this.username,
-        about: this.about,
-      });
-      this.dialog = false;
-    },
   },
 
   mounted() {
@@ -154,5 +72,32 @@ export default {
 <style>
 * {
   font-family: "Nunito", sans-serif;
+}
+
+/* customize scrollbar */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: blue orange;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: orange;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 20px;
+  border: 3px solid orange;
+}
+
+/* handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

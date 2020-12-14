@@ -8,7 +8,10 @@
 
       <!-- right pane -->
       <v-col cols="9">
-        <v-card :height="paneHeight" class="rounded-0"><Chat /></v-card>
+        <v-card :height="paneHeight" class="rounded-0">
+          <Connect v-if="!connected" />
+          <Chat v-else />
+        </v-card>
       </v-col>
     </v-row>
   </v-card>
@@ -16,6 +19,7 @@
 
 <script>
 import Chat from "./Chat";
+import Connect from "./Connect";
 import Sidebar from "./Sidebar";
 
 export default {
@@ -23,6 +27,7 @@ export default {
 
   components: {
     Chat,
+    Connect,
     Sidebar,
   },
 
@@ -31,6 +36,14 @@ export default {
     // topbarHeight: "5vh",
     paneHeight: "100vh",
   }),
+
+  computed: {
+    connected() {
+      const username = this.$store.getters.getStateData("username");
+      if (username && username.length > 0) return true;
+      else return false;
+    },
+  },
 };
 </script>
 
