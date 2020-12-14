@@ -1,47 +1,51 @@
 <template>
-  <!-- <v-dialog v-model="dialog" persistent max-width="320">
-    <v-card>
-      <v-card-title class="primary--text font-weight-bold">
-        <v-spacer />convo<v-spacer />
-      </v-card-title>
-
-      <v-card-text>
-        <v-form @submit.prevent="onSubmit">
-          <v-row>
-            <v-col cols="12"
-              ><v-text-field
-                v-bind="inputProps"
-                label="username"
-                v-model="newUsername"
-              ></v-text-field
-            ></v-col>
-            <v-col cols="12">
-              <v-text-field
-                v-bind="inputProps"
-                label="something about you"
-                v-model="about"
-              ></v-text-field>
-            </v-col>
-
-            <v-col cols="12">
-              <v-btn
-                type="submit"
-                depressed
-                class="primary text-none"
-                :disabled="newUsername.length > 0 ? false : true"
-                >connect</v-btn
-              >
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
-    </v-card>
-  </v-dialog> -->
-  <div style="width:100%;height:100%;background-color:red;" class="d-flex">
+  <v-container fill-height>
     <v-row align="center" justify="center">
-      <v-col cols="8"></v-col>
-    </v-row>
-  </div>
+      <v-col cols="12" md="9"
+        ><v-img
+          max-width="150"
+          class="mx-auto mb-3"
+          :src="require('@/assets/logo.png')"
+        ></v-img>
+
+        <v-card max-width="300" class="mx-auto" flat tile>
+          <v-card-text
+            ><v-form @submit.prevent="onSubmit">
+              <v-row>
+                <v-col cols="12"
+                  ><v-text-field
+                    v-bind="inputProps"
+                    label="enter username"
+                    v-model="newUsername"
+                  ></v-text-field
+                ></v-col>
+                <v-col cols="12">
+                  <v-textarea
+                    v-bind="inputProps"
+                    label="something about you (optional)"
+                    rows="3"
+                    v-model="about"
+                  ></v-textarea>
+                </v-col>
+
+                <v-col cols="12">
+                  <v-btn
+                    type="submit"
+                    depressed
+                    rounded
+                    block
+                    class="primary text-none"
+                    :disabled="newUsername.length > 0 ? false : true"
+                    >connect</v-btn
+                  >
+                </v-col>
+              </v-row>
+            </v-form></v-card-text
+          >
+        </v-card>
+      </v-col></v-row
+    ></v-container
+  >
 </template>
 
 <script>
@@ -60,6 +64,7 @@ export default {
     inputProps: {
       "single-line": true,
       "hide-details": true,
+      rounded: true,
       dense: true,
       outlined: true,
     },
