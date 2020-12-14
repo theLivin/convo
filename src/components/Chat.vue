@@ -70,11 +70,7 @@
     </ScrollableCard>
 
     <!-- form -->
-    <div
-      style="height:10%;"
-      class="rounded-0 rounded-br overflow-hidden"
-      id="formDiv"
-    >
+    <div style="height:10%;" class="rounded-0 overflow-hidden" id="formDiv">
       <v-form class="my-1" @submit.prevent="sendMessage">
         <v-row no-gutters>
           <v-col cols="12">
@@ -85,7 +81,7 @@
               single-line
               rounded
               flat
-              class="mx-1"
+              class="mx-1 mt-2"
               placeholder="Type a message"
               v-model="newMessage"
               @keyup="handleTyping($event, true)"

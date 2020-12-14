@@ -1,8 +1,5 @@
 <template>
-  <div
-    style="height: 100%;position:relative"
-    class="rounded-bl overflow-hidden"
-  >
+  <div style="height: 100%;position:relative" class="overflow-hidden">
     <!-- upper -->
     <div style="height:10%;" class="overflow-hidden">
       <v-list dense class="d-flex tertiary" height="100%">
@@ -25,14 +22,14 @@
     <ScrollableCard
       :attributes="{
         height: '90%',
-        class: 'rounded-0 rounded-bl',
+        class: 'rounded-0',
       }"
     >
       <ChatList />
     </ScrollableCard>
 
     <v-navigation-drawer v-model="drawer" absolute temporary width="100%">
-      <Drawer />
+      <Drawer @closeDrawer="drawer = !drawer" />
     </v-navigation-drawer>
   </div>
 </template>

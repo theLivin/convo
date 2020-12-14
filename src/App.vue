@@ -1,51 +1,51 @@
 <template>
   <v-app>
-    <v-container fill-height>
+    <!-- <v-container fill-height>
       <v-row align="center" justify="center">
-        <v-col cols="12" md="9">
-          <Home />
+        <v-col cols="12" md="9"> -->
+    <Home />
 
-          <v-dialog v-model="dialog" persistent max-width="320">
-            <v-card>
-              <v-card-title class="primary--text font-weight-bold">
-                <v-spacer />convo<v-spacer />
-              </v-card-title>
+    <v-dialog v-model="dialog" persistent max-width="320">
+      <v-card>
+        <v-card-title class="primary--text font-weight-bold">
+          <v-spacer />convo<v-spacer />
+        </v-card-title>
 
-              <v-card-text>
-                <v-form @submit.prevent="onSubmit">
-                  <v-row>
-                    <v-col cols="12"
-                      ><v-text-field
-                        v-bind="inputProps"
-                        label="username"
-                        v-model="newUsername"
-                      ></v-text-field
-                    ></v-col>
-                    <v-col cols="12">
-                      <v-text-field
-                        v-bind="inputProps"
-                        label="something about you"
-                        v-model="about"
-                      ></v-text-field>
-                    </v-col>
+        <v-card-text>
+          <v-form @submit.prevent="onSubmit">
+            <v-row>
+              <v-col cols="12"
+                ><v-text-field
+                  v-bind="inputProps"
+                  label="username"
+                  v-model="newUsername"
+                ></v-text-field
+              ></v-col>
+              <v-col cols="12">
+                <v-text-field
+                  v-bind="inputProps"
+                  label="something about you"
+                  v-model="about"
+                ></v-text-field>
+              </v-col>
 
-                    <v-col cols="12">
-                      <v-btn
-                        type="submit"
-                        depressed
-                        class="primary text-none"
-                        :disabled="newUsername.length > 0 ? false : true"
-                        >join</v-btn
-                      >
-                    </v-col>
-                  </v-row>
-                </v-form>
-              </v-card-text>
-            </v-card>
-          </v-dialog>
-        </v-col>
+              <v-col cols="12">
+                <v-btn
+                  type="submit"
+                  depressed
+                  class="primary text-none"
+                  :disabled="newUsername.length > 0 ? false : true"
+                  >join</v-btn
+                >
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+    <!-- </v-col>
       </v-row>
-    </v-container>
+    </v-container> -->
   </v-app>
 </template>
 

@@ -1,11 +1,12 @@
 <template>
   <div class="ma-0">
-    <v-card color="tertiary" flat tile>
-      <!-- <v-img
+    <!-- <v-card color="tertiary" flat tile> -->
+    <v-img
       height="150px"
       src="https://loremflickr.com/320/240/sky,animals/all"
-      gradient="to top right,rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)"
-    > -->
+      gradient="to top right,rgba(65,41,90, 0.5), rgba(47,7,67, 0.5)"
+      dark
+    >
       <div class="d-flex flex-no-wrap justify-space-between pa-3">
         <div class="text-center">
           <v-avatar size="75">
@@ -15,16 +16,24 @@
         </div>
 
         <div>
-          <v-card-actions>
-            <v-btn icon @click="toggleNotify()" class="mt-2" small>
+          <div class="d-flex align-start flex-column mt-3 mb-6">
+            <v-btn icon @click="toggleNotify()" small>
               <v-icon class="notification" v-if="notify">mdi-bell-ring</v-icon>
               <v-icon v-else>mdi-bell-off</v-icon>
             </v-btn>
-          </v-card-actions>
+          </div>
+
+          <div class="d-flex align-end flex-column">
+            <v-btn icon small>
+              <v-icon class="notification" @click="$emit('closeDrawer')"
+                >mdi-chevron-left</v-icon
+              >
+            </v-btn>
+          </div>
         </div>
       </div>
-      <!-- </v-img> -->
-    </v-card>
+    </v-img>
+    <!-- </v-card> -->
 
     <div class="pa-3" v-if="myProfile.about && myProfile.about.length > 0">
       <p class="mb-1">About</p>
