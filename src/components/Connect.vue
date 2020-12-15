@@ -4,8 +4,8 @@
       <v-col cols="12" md="9"
         ><v-img
           max-width="150"
-          class="mx-auto mb-3"
-          :src="require('@/assets/logo.png')"
+          class="mx-auto mb-3 rotate"
+          :src="require('@/assets/doodle.png')"
         ></v-img>
 
         <v-card max-width="300" class="mx-auto" flat tile>
@@ -101,4 +101,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.rotate {
+  animation: rotation 60s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+</style>
