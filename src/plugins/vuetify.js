@@ -15,14 +15,20 @@ export default new Vuetify({
 
     themes: {
       light: {
-        primary: colors.grey.lighten2,
-        secondary: colors.red.lighten2,
-        tertiary: colors.grey.lighten3,
+        brand: "#FAFBFB",
+        right: "#EFFFDE",
+        left: "#FFFFFF",
+        middle: "#AEBAC3",
+        tertiary: "#FAFBFB",
+        wall: colors.indigo.lighten5,
       },
       dark: {
-        primary: colors.green.darken1,
-        secondary: colors.grey.darken3,
+        brand: "#17212B",
+        right: "#1073AC",
+        left: "#3B5564",
+        middle: "#17212B",
         tertiary: colors.grey.darken4,
+        wall: "#131A22",
       },
     },
   },

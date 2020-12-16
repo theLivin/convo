@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <Home />
   </v-app>
 </template>
@@ -78,26 +78,20 @@ export default {
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: blue orange;
+  scrollbar-color: #999 #f0f0f0;
 }
 
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 *::-webkit-scrollbar-track {
-  background: orange;
+  background: #f0f0f0;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: blue;
+  background-color: #999;
   border-radius: 20px;
-  border: 3px solid orange;
-}
-
-/* handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
 </style>

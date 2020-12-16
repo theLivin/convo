@@ -2,7 +2,7 @@
   <div style="height: 100%;">
     <!-- top -->
     <div style="height: 10%" class="overflow-hidden">
-      <v-list dense class="d-flex tertiary" height="100%">
+      <v-list dense class="d-flex brand" height="100%">
         <v-list-item class="align-center">
           <template v-if="this.chatId.length > 0">
             <v-list-item-avatar size="35">
@@ -52,7 +52,7 @@
         <div
           v-if="item.broadcast"
           :key="i"
-          class="rounded-xl my-2 px-2 py-1 message mx-auto tertiary"
+          class="rounded-xl my-2 px-2 py-1 message mx-auto middle white--text"
         >
           {{ item.message }}
         </div>
@@ -221,8 +221,10 @@ export default {
   /* background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url("../assets/wallpaper.png"); */
 
-  /* background-image: url("../assets/wallpaper.png"); */
+  /* background-image: url("../assets/wallpaper.jpg");
+  background-repeat: repeat; */
   /* background-size: cover; */
+  background-color: var(--v-wall-base);
 }
 
 .message {
@@ -232,11 +234,11 @@ export default {
 }
 
 .left {
-  background-color: var(--v-secondary-base);
+  background-color: var(--v-left-base);
 }
 
 .right {
-  background-color: var(--v-primary-base);
+  background-color: var(--v-right-base);
 }
 
 /* create callout */
@@ -265,27 +267,25 @@ export default {
 }
 
 .left:before {
-  border-top: 11px solid var(--v-secondary-base);
+  border-top: 11px solid var(--v-left-base);
   top: -0px;
   left: -9px;
 }
 
 .left:after {
-  border-top: 10px solid var(--v-secondary-base);
+  border-top: 10px solid var(--v-left-base);
   top: 0;
   left: -8px;
 }
 
 .right:before {
-  border-bottom: 11px solid var(--v-primary-base);
-  color: white;
+  border-bottom: 11px solid var(--v-right-base);
   bottom: 0px;
   right: -9px;
 }
 
 .right:after {
-  border-bottom: 10px solid var(--v-primary-base);
-  color: white;
+  border-bottom: 10px solid var(--v-right-base);
   bottom: 0;
   right: -8px;
 }
