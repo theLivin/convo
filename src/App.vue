@@ -81,6 +81,14 @@ export default {
     window.addEventListener("focus", () => {
       this.insideApp = true;
     });
+
+    window.addEventListener("beforeunload", (e) => {
+      if (e) {
+        e.returnValue = "Sure?";
+      }
+
+      return "Sure?";
+    });
   },
 };
 </script>
