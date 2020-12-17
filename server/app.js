@@ -37,8 +37,12 @@ io.on("connection", (socket) => {
 
     io.emit("usersOnline", online);
 
+    let message = `${newUser.username} joined ${APP_NAME}`;
+    if (newUser.about.length > 0)
+      message = `${newUser.username} said ${newUser.about}`;
+
     socket.to("online").emit("message", {
-      message: `${newUser.username} joined ${APP_NAME}`,
+      message,
       username: APP_NAME,
       sender: socket.id,
       broadcast: true,

@@ -52,7 +52,7 @@
         <div
           v-if="item.broadcast"
           :key="i"
-          class="rounded-xl my-2 px-2 py-1 message mx-auto middle white--text"
+          class="rounded-sm my-2 px-2 py-1 message mx-auto middle"
         >
           {{ item.message }}
         </div>
@@ -233,14 +233,6 @@ export default {
   position: relative;
 }
 
-.left {
-  background-color: var(--v-left-base);
-}
-
-.right {
-  background-color: var(--v-right-base);
-}
-
 /* create callout */
 .left:before,
 .left:after,
@@ -279,14 +271,14 @@ export default {
 }
 
 .right:before {
-  border-bottom: 11px solid var(--v-right-base);
-  bottom: 0px;
+  border-top: 11px solid var(--v-right-base);
+  top: 0px;
   right: -9px;
 }
 
 .right:after {
-  border-bottom: 10px solid var(--v-right-base);
-  bottom: 0;
+  border-top: 10px solid var(--v-right-base);
+  top: 0;
   right: -8px;
 }
 </style>

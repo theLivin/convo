@@ -1,6 +1,7 @@
 <template>
   <v-app id="app">
     <Home />
+    <v-snackbar v-model="snackbar" top right>Hello</v-snackbar>
   </v-app>
 </template>
 
@@ -18,6 +19,7 @@ export default {
 
   data: () => ({
     insideApp: false,
+    snackbar: false,
   }),
 
   sockets: {
@@ -49,6 +51,8 @@ export default {
             this.close();
           },
         });
+      } else {
+        this.snackbar = true;
       }
     },
   },
@@ -71,7 +75,7 @@ export default {
 
 <style>
 * {
-  font-family: "Nunito", sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 
 /* customize scrollbar */

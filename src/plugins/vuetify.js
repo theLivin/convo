@@ -15,20 +15,20 @@ export default new Vuetify({
 
     themes: {
       light: {
-        brand: "#FAFBFB",
-        right: "#EFFFDE",
+        brand: "#EDEDED",
+        right: "#DCF8C6",
         left: "#FFFFFF",
-        middle: "#AEBAC3",
-        tertiary: "#FAFBFB",
-        wall: colors.indigo.lighten5,
+        middle: "#E1F3FB",
+        tertiary: "#F0F0F0",
+        wall: "#E5DDD5", //colors.indigo.lighten5,
       },
       dark: {
-        brand: "#17212B",
-        right: "#1073AC",
-        left: "#3B5564",
-        middle: "#17212B",
-        tertiary: colors.grey.darken4,
-        wall: "#131A22",
+        brand: "#2A2F32",
+        right: "#056162",
+        left: "#262D31",
+        middle: "#1E2A30",
+        tertiary: colors.grey.darken4, //'#1E2428'
+        wall: "#0D1418",
       },
     },
   },
