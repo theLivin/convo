@@ -2,12 +2,12 @@
   <v-card :height="containerHeight" elevation="4">
     <v-row no-gutters>
       <!-- left pane -->
-      <v-col cols="3">
+      <v-col cols="4" sm="3">
         <v-card :height="paneHeight" class="rounded-0"><Sidebar /></v-card>
       </v-col>
 
       <!-- right pane -->
-      <v-col cols="9">
+      <v-col cols="8" sm="9">
         <v-card :height="paneHeight" class="rounded-0">
           <Connect v-if="!connected" />
           <Chat v-else />

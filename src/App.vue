@@ -1,7 +1,10 @@
 <template>
   <v-app id="app">
     <Home />
-    <v-snackbar v-model="snackbar" top right>Hello</v-snackbar>
+    <v-snackbar v-model="snackbar.value" top color="primary">
+      {{ snackbar.title }}<br />
+      {{ snackbar.msg }}
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -19,7 +22,12 @@ export default {
 
   data: () => ({
     insideApp: false,
-    snackbar: false,
+
+    snackbar: {
+      value: false,
+      title: "",
+      msg: "",
+    },
   }),
 
   sockets: {
@@ -52,7 +60,11 @@ export default {
           },
         });
       } else {
-        this.snackbar = true;
+        const audio = new Audio(require("@/assets/notification.mp3"));
+        audio.play();
+        this.snackbar.title = username;
+        this.snackbar.msg = message;
+        this.snackbar.value = true;
       }
     },
   },
