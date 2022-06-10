@@ -2,10 +2,10 @@
   <div style="height: 100%;">
     <!-- top -->
     <div style="height: 10%" class="overflow-hidden">
-      <v-list dense class="d-flex brand" height="100%">
+      <v-list class="d-flex brand" height="100%">
         <v-list-item class="align-center">
           <template v-if="this.chatId.length > 0">
-            <v-list-item-avatar size="35">
+            <v-list-item-avatar size="45">
               <v-img :src="otheruser.image"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
@@ -19,7 +19,7 @@
           </template>
 
           <template v-else>
-            <v-list-item-avatar size="35">
+            <v-list-item-avatar size="45">
               <v-img :src="myProfile.image"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>

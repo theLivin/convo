@@ -1,5 +1,5 @@
 <template>
-  <v-list color="transparent" dense class="ma-0 pa-0">
+  <v-list color="transparent" class="ma-0 pa-0">
     <v-list-item-group v-if="username.length > 0">
       <template v-for="(user, index) in usersOnline">
         <v-list-item :key="user.id" @click="startChat(user.id)">

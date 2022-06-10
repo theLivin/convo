@@ -2,7 +2,7 @@
   <div style="height: 100%;position:relative" class="overflow-hidden">
     <!-- upper -->
     <div style="height:10%;" class="overflow-hidden">
-      <v-list dense class="d-flex brand" height="100%">
+      <v-list class="d-flex brand" height="100%">
         <v-list-item class="align-center">
           <v-app-bar-nav-icon
             @click.stop="drawer = !drawer"

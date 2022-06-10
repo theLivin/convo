@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <Home />
-    <v-snackbar v-model="snackbar.value" top color="primary">
+    <v-snackbar v-model="snackbar.value" top color="info">
       {{ snackbar.title }}<br />
       {{ snackbar.msg }}
     </v-snackbar>
@@ -94,8 +94,10 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap");
+
 * {
-  font-family: "Quicksand", sans-serif;
+  font-family: "ABeeZee", sans-serif;
 }
 
 /* customize scrollbar */
